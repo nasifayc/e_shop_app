@@ -1,31 +1,16 @@
-class Product {
-  final String? id;
-  final String name;
-  final double price;
-  final String description;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Product({
-    this.id,
-    required this.name,
-    required this.price,
-    required this.description,
-  });
+part 'product_model.freezed.dart';
+part 'product_model.g.dart';
 
-  factory Product.fromJson(Map<String, dynamic> data) {
-    return Product(
-      id: data["_id"] as String?,
-      name: data['name'] as String,
-      price: (data['price'] as num).toDouble(),
-      description: data['description'] as String,
-    );
-  }
+@freezed
+class ProductModel with _$ProductModel {
+  factory ProductModel(
+      {String? id,
+      String? name,
+      double? price,
+      String? description}) = _ProductModel;
 
-  Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
-      'name': name,
-      'price': price,
-      'description': description,
-    };
-  }
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
 }

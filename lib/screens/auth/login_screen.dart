@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:e_shop_app/providers/auth_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -25,22 +22,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     _passwordController.dispose();
   }
 
-  void _signin() async {
-    final authNotifier = ref.read(authNotifierProvider.notifier);
-
-    try {
-      await authNotifier.signIn(
-          _emailController.text.trim(), _passwordController.text.trim());
-    } catch (e) {
-      log(e.toString());
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final authStatus = ref.watch(authNotifierProvider);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(10),
@@ -62,20 +45,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  if (authStatus == AuthStatus.loading) {
-                    return;
-                  }
-
-                  if (_formKey.currentState!.validate()) {
-                    _signin();
-                  }
-                },
-                child: authStatus == AuthStatus.loading
-                    ? CircularProgressIndicator(
-                        color: Colors.green,
-                      )
-                    : Text('Login'),
+                onPressed: null,
+                child: Text('Login'),
               ),
               SizedBox(height: 10),
               Text('Forgot Password?'),

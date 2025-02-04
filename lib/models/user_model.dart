@@ -1,19 +1,12 @@
-class UserModel {
-  final String? id;
-  final String name;
-  final String email;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  UserModel({this.id, required this.name, required this.email});
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
 
-  factory UserModel.fromJson(Map<String, dynamic> data) {
-    return UserModel(
-      id: data['_id'] as String,
-      name: data['name'] as String,
-      email: data['email'] as String,
-    );
-  }
+@freezed
+class UserModel with _$UserModel {
+  factory UserModel({String? id, String? name, String? email}) = _UserModel;
 
-  Map<String, dynamic> toJson() {
-    return {'_id': id, 'name': name, 'email': email};
-  }
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
 }
